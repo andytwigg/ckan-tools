@@ -2,7 +2,8 @@ import ckanclient
 import json
 
 api_key='<your-api-key>'
-base_location='http://thedatahub.org/api'
+#base_location='http://thedatahub.org/api'
+#base_location='http://data.gov.uk/api'
 
 def get_pkg_tag(ckan, tag):
 	pkgs = ckan.tag_entity_get(tag)
@@ -44,12 +45,13 @@ def write_pkgs(ckan, tag, type=['CSV','XLS']):
 
 if __name__ == "__main__":
 	import sys
-	if (len(sys.argv) != 3):
-		print "Usage:",sys.argv[0],"<tag> <api_key>"
+	if (len(sys.argv) != 4):
+		print "Usage:",sys.argv[0],"<base_location> <tag> <api_key>"
 		sys.exit(1)
 	else:
-		tag=sys.argv[1]
-		api_key=sys.argv[2]
+		base_location=sys.argv[1]
+		tag=sys.argv[2]
+		api_key=sys.argv[3]
 		print "init:",base_location,api_key
 		ckan=ckanclient.CkanClient(base_location,api_key)
 		write_pkgs(ckan,tag)
